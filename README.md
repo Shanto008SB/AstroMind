@@ -183,5 +183,3 @@ http://<YOUR_LOCAL_IP>:5000/remote
 
 ---
 
-## 📄 License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
