@@ -114,16 +114,18 @@ Unlike typical hackathon projects that build simple mock web dashboards, AstroMi
 
 ---
 
-## 🔬 5. Official NASA Datasets & Technical Standards Integrated
+## 🔬 Official NASA Datasets & Technical Standards Integrated
 
 AstroMind directly integrates data and regulatory thresholds from official NASA resources:
 
-| NASA Resource | Standard / Dataset | Implementation in AstroMind |
+| NASA Resource | Standard / Dataset / Source | Implementation in AstroMind |
 | :--- | :--- | :--- |
-| **[NASA-STD-3001 Vol 2](https://standards.nasa.gov/standard/NASA/NASA-STD-3001-Vol-2)** | Space Flight Human-System Standard | Calibrates cabin safety alarms (Danger Siren) for CO₂ (<0.40% SMAC), temperature, and cumulative radiation dosimetry. |
-| **[NASA LSDA](https://lsda.jsc.nasa.gov/)** | Life Sciences Data Archive | Microgravity physiological norms (Resting Heart Rate, arterial SpO₂, HRV RMSSD) to model baseline drift in orbit. |
-| **[NASA OSDR](https://osdr.nasa.gov/)** | Open Science Data Repository | Spaceflight clinical syndromes and biological countermeasures for SANS, acute hypoxia, and cephalad fluid shifts. |
-| **[NASA Mission Archive](https://www.nasa.gov/missions/)** | ISS Expeditions Roster | Preloaded multi-group deployment rosters across Expeditions 70, 71, 72, and Artemis missions. |
+| **[NASA Open Data Portal](https://data.nasa.gov/docs/legacy/Extra-vehicular_Activity_EVA_-_US_and_Russia/Extra-vehicular_Activity_EVA_-_US_and_Russia_rows.csv)** | Extra-vehicular Activity (EVA - US and Russia) | 383 historical spacewalk mission records to cross-reference EVA physiological workloads. |
+| **[NASA Astronaut Historical Archive](https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-14/astronauts.csv)** | NASA Open Data & Corlett Database | 1,280 official NASA astronaut flight logs for cumulative spaceflight hours and mission tracking. |
+| **[NASA-STD-3001 Vol 2](https://standards.nasa.gov/standard/NASA/NASA-STD-3001-Vol-2)** | NASA Space Flight Human-System Standard | Spacecraft environmental safety limits (Cabin CO₂ SMAC levels, ambient temperature, radiation thresholds). |
+| **[NASA LSDA](https://lsda.jsc.nasa.gov/)** | Life Sciences Data Archive | Astronaut physiological baseline data (microgravity heart rate drift, SpO₂ tolerances, and cognitive fatigue metrics). |
+| **[NASA OSDR](https://osdr.nasa.gov/)** | Open Science Data Repository | Spaceflight clinical anomaly profiles and systemic microgravity health deconditioning protocols. |
+| **[NASA Human Research Roadmap](https://humanresearchroadmap.nasa.gov/)** | Exploration Medical Capabilities (ExMC) | Autonomous clinical decision-making protocols designed for deep-space missions facing Earth communication latency. |
 
 ---
 
