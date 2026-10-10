@@ -1,0 +1,7 @@
+parameter,unit,nominal_min,nominal_max,caution_threshold,emergency_threshold,nasa_standard_reference,clinical_risk,countermeasure
+Cabin_CO2,%,0.00,0.30,0.40,0.70,NASA-STD-3001 Vol 2 Sec 6.2 (SMAC 24h limit),Hypercapnia / Space Headache / Cognitive Impairment,Scrub LiOH canisters / Increase ventilation / Don O2 mask
+Cabin_Temperature,degC,18.3,26.7,28.0,32.0,NASA-STD-3001 Vol 2 Sec 6.5,Hypothermia / Heat Exhaustion / Dehydration,Adjust active thermal control / Hydrate with electrolytes
+Cabin_Pressure,kPa,98.6,102.7,92.0,70.0,NASA-STD-3001 Vol 2 Sec 6.1,Decompression sickness / Hypoxia,Seal cabin hatches / Don emergency pressure suit
+Cabin_Radiation,mSv/day,0.00,0.25,0.50,1.00,NASA-STD-3001 Vol 2 Sec 6.8 (ALARA Guidelines),Acute Radiation Sickness / DNA damage,Retreat to shielded storm shelter (Water wall)
+Oxygen_Partial_Pressure,kPa,19.5,23.1,17.0,14.0,NASA-STD-3001 Vol 2 Sec 6.2,Hypoxia / Loss of consciousness,Inject emergency high-pressure O2 feed
+Relative_Humidity,%,30.0,70.0,25.0,80.0,NASA-STD-3001 Vol 2 Sec 6.6,Mucosal irritation / Microbial growth,Cycle cabin moisture desiccant beds

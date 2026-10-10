@@ -1,0 +1,6 @@
+mission_id,mission_name,vehicle_station,launch_date,landing_date,crew_size,mission_status,nasa_archive_url
+expedition_72,Expedition 72 Lunar Gateway / ISS,Space Station Alpha,2026-05-12,2026-11-20,4,ACTIVE_IN_SPACE,https://www.nasa.gov/mission/expedition-72/
+expedition_71,Expedition 71 ISS Orbital Mission,Space Station Alpha,2025-09-01,2026-03-15,6,HISTORICAL_RETURNED,https://www.nasa.gov/mission/expedition-71/
+expedition_70,Expedition 70 Long Duration Science,Space Station Alpha,2024-03-10,2024-09-25,7,HISTORICAL_RETURNED,https://www.nasa.gov/mission/expedition-70/
+artemis_2,Artemis II Lunar Flyby Crew,Orion Spacecraft,2025-11-15,2025-11-25,4,HISTORICAL_RETURNED,https://www.nasa.gov/mission/artemis-ii/
+artemis_3,Artemis III Lunar South Pole Landing,Starship HLS / Orion,2027-02-10,2027-08-30,4,SCHEDULED_TRAINING,https://www.nasa.gov/mission/artemis-iii/

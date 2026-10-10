@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AstroMind | Mobile IoT Sensor Controller</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Rajdhani:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070b14;
+      --card-bg: #0f172a;
+      --cyan: #00f0ff;
+      --green: #10b981;
+      --amber: #f59e0b;
+      --red: #ff1e53;
+      --text: #f1f5f9;
+      --text-dim: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      padding: 16px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(0, 240, 255, 0.25);
+      padding-bottom: 12px;
+    }
+    .header-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 16px;
+      letter-spacing: 1.5px;
+      color: var(--cyan);
+    }
+    .status-badge {
+      font-size: 10px;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--green);
+      border: 1px solid var(--green);
+      padding: 3px 8px;
+      border-radius: 12px;
+    }
+    .astronaut-select-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: 10px;
+      padding: 12px;
+    }
+    .label-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-dim);
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .sel-astronaut {
+      width: 100%;
+      background: #1e293b;
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      color: #fff;
+      font-size: 14px;
+      padding: 10px;
+      border-radius: 6px;
+      outline: none;
+    }
+    .control-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .slider-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+    .slider-val {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cyan);
+    }
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: #1e293b;
+      outline: none;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--cyan);
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--cyan);
+    }
+    .presets-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .btn-preset {
+      background: #1e293b;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text);
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+    }
+    .btn-preset:active {
+      transform: scale(0.97);
+    }
+    .preset-danger {
+      border-color: rgba(255, 30, 83, 0.5);
+      color: #ff4d6d;
+    }
+    .btn-emergency {
+      background: linear-gradient(135deg, #ff1e53, #b91c1c);
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(255, 30, 83, 0.5);
+      animation: emergencyPulse 1.2s infinite alternate;
+    }
+    @keyframes emergencyPulse {
+      from { box-shadow: 0 0 10px rgba(255, 30, 83, 0.4); }
+      to { box-shadow: 0 0 25px rgba(255, 30, 83, 0.9); }
+    }
+    .sync-banner {
+      font-size: 11px;
+      color: var(--text-dim);
+      text-align: center;
+      margin-top: auto;
+      padding-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <span class="header-title">🚀 ASTROMIND IoT</span>
+    <span class="status-badge" id="syncStatus">● CONNECTED TO DESKTOP</span>
+  </div>
+
+  <div class="astronaut-select-card">
+    <div class="label-title">
+      <span>TARGET CREW MEMBER</span>
+      <span style="color:var(--cyan)">LIVE CONTROL</span>
+    </div>
+    <select id="selCrew" class="sel-astronaut" onchange="onCrewChange(this.value)">
+      <option value="sarah">01 • Capt. Sarah Connor (Commander)</option>
+      <option value="alex">02 • Dr. Alex Vance (Surgeon)</option>
+      <option value="john">03 • Eng. John Miller (Systems Chief)</option>
+      <option value="elena">04 • Elena Rostova (Robotics Specialist)</option>
+    </select>
+  </div>
+
+  <div class="control-card">
+    <div class="label-title">LIVE BIOMETRIC SENSORS (PHONE CONTROL)</div>
+
+    <!-- Heart Rate -->
+    <div class="slider-group">
+      <div class="slider-header">
+        <span>💓 Pulse / Heart Rate</span>
+        <span class="slider-val"><span id="valHr">72</span> BPM</span>
+      </div>
+      <input type="range" id="rangeHr" min="40" max="150" value="72" oninput="sendVitals()">
+    </div>
+
+    <!-- SpO2 -->
+    <div class="slider-group">
+      <div class="slider-header">
+        <span>🫁 Blood Oxygen (SpO₂)</span>
+        <span class="slider-val"><span id="valSpo2">98.4</span> %</span>
+      </div>
+      <input type="range" id="rangeSpo2" min="80" max="100" step="0.5" value="98.4" oninput="sendVitals()">
+    </div>
+
+    <!-- HRV -->
+    <div class="slider-group">
+      <div class="slider-header">
+        <span>⚡ Heart Rate Var. (HRV)</span>
+        <span class="slider-val"><span id="valHrv">58</span> ms</span>
+      </div>
+      <input type="range" id="rangeHrv" min="15" max="95" value="58" oninput="sendVitals()">
+    </div>
+
+    <!-- Fatigue -->
+    <div class="slider-group">
+      <div class="slider-header">
+        <span>🧠 Cognitive Fatigue</span>
+        <span class="slider-val"><span id="valFatigue">18</span> %</span>
+      </div>
+      <input type="range" id="rangeFatigue" min="5" max="95" value="18" oninput="sendVitals()">
+    </div>
+
+    <!-- Cabin CO2 -->
+    <div class="slider-group">
+      <div class="slider-header">
+        <span>💨 Cabin CO₂ Level</span>
+        <span class="slider-val"><span id="valCo2">0.31</span> %</span>
+      </div>
+      <input type="range" id="rangeCo2" min="0.1" max="1.2" step="0.05" value="0.31" oninput="sendVitals()">
+    </div>
+  </div>
+
+  <div class="control-card">
+    <div class="label-title">QUICK MISSION PRESETS (ONE-TOUCH)</div>
+    <div class="presets-grid">
+      <button class="btn-preset" onclick="applyPreset(72, 98.4, 58, 18, 0.31, false)">🟢 Nominal Orbit</button>
+      <button class="btn-preset" onclick="applyPreset(105, 97.5, 48, 35, 0.35, false)">🏃 EVA Spacewalk</button>
+      <button class="btn-preset" onclick="applyPreset(58, 99.0, 72, 10, 0.28, false)">💤 Sleep Rest</button>
+      <button class="btn-preset preset-danger" onclick="applyPreset(42, 88.5, 18, 85, 0.72, true)">🚨 Hypoxia Crisis</button>
+    </div>
+  </div>
+
+  <button class="btn-emergency" id="btnEmergencyToggle" onclick="toggleEmergencyFromPhone()">
+    🚨 TOGGLE RED ALERT EMERGENCY
+  </button>
+
+  <div class="sync-banner">
+    📱 Changes instantly reflect on the Python Desktop GUI Screen.
+  </div>
+
+  <script>
+    let isEmergency = false;
+
+    function sendVitals() {
+      const hr = document.getElementById("rangeHr").value;
+      const spo2 = document.getElementById("rangeSpo2").value;
+      const hrv = document.getElementById("rangeHrv").value;
+      const fatigue = document.getElementById("rangeFatigue").value;
+      const co2 = document.getElementById("rangeCo2").value;
+
+      document.getElementById("valHr").innerText = hr;
+      document.getElementById("valSpo2").innerText = spo2;
+      document.getElementById("valHrv").innerText = hrv;
+      document.getElementById("valFatigue").innerText = fatigue;
+      document.getElementById("valCo2").innerText = co2;
+
+      fetch("/api/remote/update", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ hr, spo2, hrv, fatigue, co2, is_emergency: isEmergency })
+      }).then(r => r.json()).then(data => {
+        document.getElementById("syncStatus").innerText = "● LIVE SYNC ACTIVE";
+      }).catch(err => {
+        document.getElementById("syncStatus").innerText = "⚠️ RECONNECTING...";
+      });
+    }
+
+    function applyPreset(hr, spo2, hrv, fatigue, co2, em) {
+      document.getElementById("rangeHr").value = hr;
+      document.getElementById("rangeSpo2").value = spo2;
+      document.getElementById("rangeHrv").value = hrv;
+      document.getElementById("rangeFatigue").value = fatigue;
+      document.getElementById("rangeCo2").value = co2;
+      isEmergency = em;
+      sendVitals();
+    }
+
+    function toggleEmergencyFromPhone() {
+      isEmergency = !isEmergency;
+      if (isEmergency) {
+        applyPreset(42, 88.5, 18, 85, 0.75, true);
+        document.getElementById("btnEmergencyToggle").innerText = "🟢 CLEAR EMERGENCY (RESTORE NOMINAL)";
+      } else {
+        applyPreset(72, 98.4, 58, 18, 0.31, false);
+        document.getElementById("btnEmergencyToggle").innerText = "🚨 TOGGLE RED ALERT EMERGENCY";
+      }
+    }
+
+    function onCrewChange(cid) {
+      fetch("/api/remote/select_crew", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ astronaut_id: cid })
+      }).then(() => {
+        // Fetch baseline values for new crew
+        fetch("/api/remote/status").then(r => r.json()).then(data => {
+          document.getElementById("rangeHr").value = data.vitals.heart_rate;
+          document.getElementById("rangeSpo2").value = data.vitals.spo2;
+          document.getElementById("rangeHrv").value = data.vitals.hrv;
+          document.getElementById("rangeFatigue").value = data.vitals.fatigue_level;
+          sendVitals();
+        });
+      });
+    }
+  </script>
+</body>
+</html>

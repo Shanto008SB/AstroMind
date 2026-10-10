@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AstroMind | Space Mission Edge AI Health Monitoring System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body class="theme-space-dark">
+
+  <!-- TOP STATUS HEADER -->
+  <header class="hud-header" id="hudHeader">
+    <div class="header-brand">
+      <div class="logo-box">
+        <span class="logo-icon">🚀</span>
+        <div class="logo-text">
+          <span class="brand-title">ASTROMIND</span>
+          <span class="brand-sub">EDGE AI HEALTH SYSTEM • NASA SPACE APPS</span>
+        </div>
+      </div>
+      <div class="mission-tag">
+        <span class="pulse-dot"></span>
+        <span id="missionName">ARTEMIS III • LUNAR HABITAT ALPHA</span>
+      </div>
+    </div>
+
+    <!-- Edge AI Brain Status & Voice Status -->
+    <div class="header-badges">
+      <div class="status-pill status-pill-active" title="100% Offline Edge Operation">
+        <span class="pill-dot glow-green"></span>
+        <span class="pill-label">EDGE AI BRAIN:</span>
+        <strong class="pill-val">OFFLINE AUTONOMOUS</strong>
+      </div>
+
+      <div class="status-pill status-pill-voice" id="voiceIndicator" title="Hands-free voice trigger is listening">
+        <span class="pill-dot glow-cyan" id="voiceDot"></span>
+        <span class="pill-label">VOICE TRIGGER:</span>
+        <strong class="pill-val" id="voiceStatusText">🎤 "Hey AstroMind" ACTIVE</strong>
+      </div>
+
+      <div class="telemetry-pill">
+        <span class="icon-dsn">📡</span>
+        <span class="tel-label">DSN DELAY:</span>
+        <span class="tel-delay" id="telemetryDelayDisplay">2.6s (LUNAR)</span>
+        <button class="btn-sync-telemetry" id="btnSyncTelemetry" title="Sync buffered telemetry to Earth Ground Control">
+          <span>SYNC LOGS</span>
+          <span class="badge-count" id="bufferCountBadge">0</span>
+        </button>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn-emergency-toggle" id="btnToggleEmergency" title="Simulate emergency for judging demonstration">
+          <span class="alert-icon-mini">🚨</span>
+          <span id="emergencyBtnText">SIMULATE DRILL</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN DASHBOARD CONTAINER -->
+  <div class="dashboard-layout">
+
+    <!-- 1. TOP VITALS BAR: 4 INTERACTIVE CARDS (Enhancement Tip 3) -->
+    <section class="vitals-cards-grid" id="topVitalsBar">
+      
+      <!-- Card 1: Pulse Rate / Heart Rate -->
+      <div class="vital-card card-pulse" id="cardPulse">
+        <div class="vital-card-header">
+          <div class="vital-title-wrap">
+            <span class="vital-icon pulse-anim">❤️</span>
+            <span class="vital-name">PULSE / HEART RATE</span>
+          </div>
+          <span class="vital-badge badge-normal" id="pulseBadge">NORMAL</span>
+        </div>
+        <div class="vital-card-body">
+          <div class="vital-reading">
+            <span class="vital-number" id="valPulse">72</span>
+            <span class="vital-unit">BPM</span>
+          </div>
+          <div class="vital-trend" id="pulseTrend">
+            <span class="trend-icon">↗</span> <span>Stable Sinus Rhythm</span>
+          </div>
+        </div>
+        <!-- Realtime Canvas ECG Waveform -->
+        <div class="card-ecg-canvas-wrap">
+          <canvas id="ecgCanvas" width="280" height="42"></canvas>
+        </div>
+        <div class="vital-card-footer">
+          <span>Nominal: 60 - 100 BPM</span>
+          <span class="vital-method">rPPG Face Camera</span>
+        </div>
+      </div>
+
+      <!-- Card 2: Blood Oxygen (SpO2) -->
+      <div class="vital-card card-spo2" id="cardSpo2">
+        <div class="vital-card-header">
+          <div class="vital-title-wrap">
+            <span class="vital-icon">🫁</span>
+            <span class="vital-name">BLOOD OXYGEN (SpO₂)</span>
+          </div>
+          <span class="vital-badge badge-normal" id="spo2Badge">OPTIMAL</span>
+        </div>
+        <div class="vital-card-body">
+          <div class="vital-reading">
+            <span class="vital-number" id="valSpo2">98.4</span>
+            <span class="vital-unit">%</span>
+          </div>
+          <div class="vital-trend" id="spo2Trend">
+            <span class="trend-icon">●</span> <span>Arterial Oxygenation Safe</span>
+          </div>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill fill-cyan" id="spo2Progress" style="width: 98.4%;"></div>
+        </div>
+        <div class="vital-card-footer">
+          <span>Target: &gt; 94.0% in Microgravity</span>
+          <span class="vital-method">Optical Extraction</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Heart Rate Variability (HRV) -->
+      <div class="vital-card card-hrv" id="cardHrv">
+        <div class="vital-card-header">
+          <div class="vital-title-wrap">
+            <span class="vital-icon">⚡</span>
+            <span class="vital-name">HEART RATE VARIABILITY</span>
+          </div>
+          <span class="vital-badge badge-normal" id="hrvBadge">BALANCED</span>
+        </div>
+        <div class="vital-card-body">
+          <div class="vital-reading">
+            <span class="vital-number" id="valHrv">58</span>
+            <span class="vital-unit">ms</span>
+          </div>
+          <div class="vital-trend" id="hrvTrend">
+            <span class="trend-icon">🛡️</span> <span>Parasympathetic Tone</span>
+          </div>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill fill-purple" id="hrvProgress" style="width: 72%;"></div>
+        </div>
+        <div class="vital-card-footer">
+          <span>RMSSD Metric: Autonomic Tone</span>
+          <span class="vital-method">Zero IoT Sensor</span>
+        </div>
+      </div>
+
+      <!-- Card 4: Fatigue Level & Stress -->
+      <div class="vital-card card-fatigue" id="cardFatigue">
+        <div class="vital-card-header">
+          <div class="vital-title-wrap">
+            <span class="vital-icon">🧠</span>
+            <span class="vital-name">FATIGUE & STRESS LEVEL</span>
+          </div>
+          <span class="vital-badge badge-normal" id="fatigueBadge">LOW</span>
+        </div>
+        <div class="vital-card-body">
+          <div class="vital-reading">
+            <span class="vital-number" id="valFatigue">18</span>
+            <span class="vital-unit">%</span>
+          </div>
+          <div class="vital-trend" id="fatigueTrend">
+            <span class="trend-icon">👁️</span> <span>Blink: 14/min (Focused)</span>
+          </div>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill fill-emerald" id="fatigueProgress" style="width: 18%;"></div>
+        </div>
+        <div class="vital-card-footer">
+          <span>Cognitive Burnout Index</span>
+          <span class="vital-method">Computer Vision</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- WORKSPACE 3-COLUMN GRID: Matching User's Drawing -->
+    <div class="main-work-grid">
+
+      <!-- LEFT SIDEBAR: Astronaut Profiles Serially -->
+      <aside class="astronaut-sidebar" id="astronautSidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title-row">
+            <span class="sidebar-icon">👨‍🚀</span>
+            <h3>CREW PROFILES</h3>
+          </div>
+          <span class="crew-count-badge">4 ONBOARD</span>
+        </div>
+        <p class="sidebar-note">Select crew member to switch vital telemetry stream:</p>
+
+        <!-- Serial list of astronauts -->
+        <div class="astronaut-list" id="astronautList">
+          {% for cid, m in crew.items() %}
+          <div class="astronaut-card {% if cid == active_id %}active-crew{% endif %}" 
+               data-id="{{ cid }}" 
+               id="crewCard-{{ cid }}"
+               onclick="selectAstronaut('{{ cid }}')">
+            <div class="card-serial">{{ m.serial }}</div>
+            <div class="card-avatar-wrap">
+              <img src="{{ m.avatar }}" alt="{{ m.name }}" class="crew-avatar-img">
+              <span class="crew-status-indicator status-green" id="avatarDot-{{ cid }}"></span>
+            </div>
+            <div class="card-info">
+              <div class="crew-name-row">
+                <h4 class="crew-name">{{ m.name }}</h4>
+              </div>
+              <span class="crew-role">{{ m.role }}</span>
+              <div class="crew-quick-vitals">
+                <span class="pill-mini">HR: <strong id="listHr-{{ cid }}">{{ m.baseline_hr }}</strong></span>
+                <span class="pill-mini">SpO₂: <strong id="listSpo2-{{ cid }}">{{ m.baseline_spo2 }}%</strong></span>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- Telemetry Earth Delay Mode Selector -->
+        <div class="sidebar-telemetry-box">
+          <div class="box-header-mini">
+            <span>DEEP SPACE SYNC PROFILE</span>
+          </div>
+          <select id="selectMissionDestination" class="hud-select" onchange="changeMissionDestination(this.value)">
+            <option value="artemis" selected>🌙 Artemis Lunar (2.6s Delay)</option>
+            <option value="mars">🪐 Mars Deep Space (14m 20s Delay)</option>
+            <option value="iss">🛰️ Low Earth Orbit (0.5s Delay)</option>
+          </select>
+          <div class="buffer-info-row">
+            <span>Local Buffer:</span>
+            <span id="bufferStatusText">Autonomous Edge Mode</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- CENTER: AI FACE RECOGNITION & rPPG CAMERA BOX -->
+      <main class="center-camera-viewport" id="centerCameraBox">
+        <div class="viewport-header">
+          <div class="vp-title">
+            <span class="vp-badge live-blink">● LIVE</span>
+            <span class="vp-title-text" id="cameraFeedTitle">AI rPPG FACE RECOGNITION & BIOMETRIC MESH</span>
+          </div>
+          <div class="vp-controls">
+            <button class="btn-pill-toggle active" id="btnModeSimulated" onclick="setCameraSource('simulated')">
+              🪐 SIMULATED CREW FEED
+            </button>
+            <button class="btn-pill-toggle" id="btnModeWebcam" onclick="setCameraSource('webcam')">
+              📹 LIVE WEBCAM
+            </button>
+          </div>
+        </div>
+
+        <!-- The Camera Screen / Face Mesh Visualizer Frame -->
+        <div class="camera-screen-container" id="cameraScreenContainer">
+          
+          <!-- Stream Display: Image feed or Video -->
+          <div class="video-canvas-wrapper" id="videoCanvasWrapper">
+            <!-- Simulated server stream or local canvas -->
+            <img id="serverVideoFeed" src="{{ url_for('video_feed') }}" alt="AstroMind Video Stream" class="feed-img">
+            <video id="webcamVideo" autoplay playsinline muted style="display:none;"></video>
+            <canvas id="faceMeshCanvas" class="face-mesh-canvas"></canvas>
+          </div>
+
+          <!-- Futuristic Sci-Fi HUD Overlays -->
+          <div class="hud-corner top-left"></div>
+          <div class="hud-corner top-right"></div>
+          <div class="hud-corner bottom-left"></div>
+          <div class="hud-corner bottom-right"></div>
+
+          <!-- Scanning Target Box -->
+          <div class="hud-face-reticle" id="faceReticle">
+            <div class="reticle-bracket top-l"></div>
+            <div class="reticle-bracket top-r"></div>
+            <div class="reticle-bracket bot-l"></div>
+            <div class="reticle-bracket bot-r"></div>
+            <div class="forehead-rppg-box">
+              <span class="rppg-tag">OPTICAL rPPG ROI [FOREHEAD]</span>
+              <div class="rppg-micro-pulse"></div>
+            </div>
+            <div class="reticle-label">
+              <span class="reticle-astronaut-name" id="reticleAstronautName">CAPT. SARAH CONNOR</span>
+              <span class="reticle-status" id="reticleStatus">● TRACKING LOCKED (30 FPS)</span>
+            </div>
+          </div>
+
+          <!-- Bottom floating rPPG Pulse Graph inside camera viewport -->
+          <div class="camera-bottom-hud">
+            <div class="rppg-graph-box">
+              <div class="graph-legend">
+                <span>CHROMINANCE PHOTOPLETHYSMOGRAPHY SIGNAL</span>
+                <span id="instantBpmDisplay">72 BPM (EST.)</span>
+              </div>
+              <canvas id="rppgWaveCanvas" width="460" height="38"></canvas>
+            </div>
+          </div>
+
+          <!-- Emergency Screen Glow Overlay -->
+          <div class="emergency-screen-overlay" id="screenEmergencyOverlay"></div>
+
+          <!-- Interactive AI Doctor Button (Matching User's Hand-Drawn Box & Pointer Line) -->
+          <div class="ai-doctor-communicate-box" id="aiDoctorBox">
+            <div class="ai-doctor-btn-wrapper">
+              <button class="btn-talk-doctor" id="btnTalkDoctor" title="Click or say 'Hey AstroMind' to talk to Offline AI Doctor">
+                <span class="doctor-mic-icon">🎙️</span>
+                <span class="btn-talk-text">Talk to AI Doctor</span>
+                <span class="voice-wave-anim" id="micWaveAnim">
+                  <span></span><span></span><span></span><span></span>
+                </span>
+              </button>
+            </div>
+            <div class="voice-hint-row">
+              <span class="hint-text">🎤 Hands-Free: Say <strong>"Hey AstroMind"</strong> or <strong>"Hey Doctor"</strong></span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Quick Voice Queries / Action Bar Below Camera -->
+        <div class="voice-quick-bar">
+          <span class="quick-label">QUICK QUERIES:</span>
+          <button class="btn-query-chip" onclick="sendVoiceQuery('What is my heart rate and status?')">"Heart Rate"</button>
+          <button class="btn-query-chip" onclick="sendVoiceQuery('Am I fit for the spacewalk?')">"EVA Readiness"</button>
+          <button class="btn-query-chip" onclick="sendVoiceQuery('Check cabin atmosphere')">"Cabin Air"</button>
+          <button class="btn-query-chip" onclick="sendVoiceQuery('How is my fatigue level?')">"Fatigue"</button>
+          <button class="btn-query-chip chip-emergency" onclick="sendVoiceQuery('Simulate emergency drill')">"🚨 Emergency Drill"</button>
+        </div>
+
+        <!-- Text Input Fallback Bar for AI Doctor -->
+        <div class="doctor-input-bar">
+          <input type="text" id="txtDoctorQuery" class="hud-input" placeholder="Type a clinical query or speak hands-free with 'Hey AstroMind'..." onkeydown="handleDoctorInputKey(event)">
+          <button class="btn-hud-send" onclick="submitDoctorTextInput()">ASK DOCTOR</button>
+        </div>
+
+      </main>
+
+      <!-- RIGHT PANEL: ASTRONAUT HEALTH REPORT & SUGGESTION -->
+      <aside class="health-report-panel" id="healthReportPanel">
+        <div class="panel-header">
+          <div class="panel-title-row">
+            <span class="panel-icon">📋</span>
+            <h3>ASTRONAUT HEALTH REPORT</h3>
+          </div>
+          <span class="badge-report-time" id="reportTimestamp">JUST NOW</span>
+        </div>
+
+        <!-- Active Subject Details -->
+        <div class="active-subject-card">
+          <div class="subject-row">
+            <img src="{{ crew[active_id].avatar }}" id="activeSubjectImg" class="subject-mini-img" alt="Astronaut">
+            <div class="subject-details">
+              <h4 id="activeSubjectName">Capt. Sarah Connor</h4>
+              <span class="subject-role-text" id="activeSubjectRole">Mission Commander / EVA Specialist</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Crew Readiness Score Gauge -->
+        <div class="readiness-gauge-card" id="readinessGaugeCard">
+          <div class="gauge-header">
+            <span class="gauge-title">CREW READINESS SCORE</span>
+            <span class="gauge-eval" id="readinessEvalText">FIT FOR EVA</span>
+          </div>
+          <div class="readiness-circle-wrapper">
+            <svg class="readiness-circle-svg" viewBox="0 0 120 120">
+              <circle class="circle-bg" cx="60" cy="60" r="50"></circle>
+              <circle class="circle-progress" id="readinessCircleBar" cx="60" cy="60" r="50" style="stroke-dashoffset: 47;"></circle>
+            </svg>
+            <div class="circle-inner-value">
+              <span class="readiness-number" id="readinessScoreVal">85%</span>
+              <span class="readiness-sub">DUTY READY</span>
+            </div>
+          </div>
+          <div class="readiness-meta-row">
+            <span>Cardiovascular: <strong id="scoreCardio">92%</strong></span>
+            <span>Cognitive: <strong id="scoreCognitive">84%</strong></span>
+            <span>Environment: <strong id="scoreEnv">95%</strong></span>
+          </div>
+        </div>
+
+        <!-- AI Doctor Analysis Section -->
+        <div class="report-section-box">
+          <div class="sec-header">
+            <span class="sec-icon">🩺</span>
+            <h4>AI DOCTOR ANALYSIS</h4>
+          </div>
+          <div class="ai-doctor-diagnosis-box" id="aiDoctorDiagnosisBox">
+            <p id="aiDoctorNoteText" class="diagnosis-text">
+              Optimal physiological equilibrium for Capt. Sarah Connor. Cardiovascular sinus rhythm, SpO2, and autonomic tone are within mission safety baselines.
+            </p>
+          </div>
+        </div>
+
+        <!-- Actionable Suggestions & Countermeasures -->
+        <div class="report-section-box">
+          <div class="sec-header">
+            <span class="sec-icon">💡</span>
+            <h4>CLINICAL SUGGESTIONS</h4>
+          </div>
+          <ul class="suggestions-list" id="suggestionsList">
+            <li>💧 <strong>Hydration:</strong> Drink 350ml electrolyte pouch to combat microgravity fluid shift.</li>
+            <li>🏃 <strong>Exercise:</strong> Scheduled 45-min cycle ergometer workout before next EVA shift.</li>
+            <li>💤 <strong>Circadian Rest:</strong> 7.5 hours restorative sleep recommended.</li>
+          </ul>
+        </div>
+
+        <!-- Cabin Environment Telemetry -->
+        <div class="report-section-box">
+          <div class="sec-header">
+            <span class="sec-icon">🛰️</span>
+            <h4>CABIN ATMOSPHERE TELEMETRY</h4>
+          </div>
+          <div class="cabin-grid">
+            <div class="cabin-item">
+              <span class="c-label">CO₂ LEVEL</span>
+              <span class="c-val" id="valCabinCo2">0.31 %</span>
+            </div>
+            <div class="cabin-item">
+              <span class="c-label">CABIN TEMP</span>
+              <span class="c-val" id="valCabinTemp">21.6 °C</span>
+            </div>
+            <div class="cabin-item">
+              <span class="c-label">PRESSURE</span>
+              <span class="c-val" id="valCabinPressure">101.3 kPa</span>
+            </div>
+            <div class="cabin-item">
+              <span class="c-label">RADIATION</span>
+              <span class="c-val" id="valCabinRad">0.18 mSv/h</span>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+
+    <!-- 2. CLEAR EMERGENCY / RED ALERT ZONE BANNER (Enhancement Tip 2) -->
+    <footer class="emergency-alert-banner" id="emergencyBanner">
+      <div class="banner-inner">
+        <div class="alert-status-symbol" id="alertSymbol">🟢</div>
+        <div class="alert-content">
+          <div class="alert-title-row">
+            <h3 class="alert-headline" id="alertHeadline">SYSTEM NOMINAL: NO CRITICAL ANOMALIES DETECTED</h3>
+            <span class="alert-time-tag" id="alertTimeTag">ALL CREW VITALS WITHIN SAFETY TOLERANCES</span>
+          </div>
+          <p class="alert-directive" id="alertDirective">
+            Onboard Local Edge Brain actively monitoring vitals via contactless rPPG computer vision. Deep-space telemetry log store-and-forward active.
+          </p>
+        </div>
+        <div class="banner-actions">
+          <button class="btn-emergency-action" id="btnEmergencyAction" onclick="handleEmergencyBannerAction()">
+            <span>TRIGGER EMERGENCY DEMO</span>
+          </button>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Telemetry Sync Modal Dialog -->
+  <div class="modal-backdrop" id="telemetryModal" style="display: none;">
+    <div class="hud-modal">
+      <div class="modal-header">
+        <div class="modal-title-row">
+          <span class="m-icon">📡</span>
+          <h3>DEEP SPACE STORE-AND-FORWARD TELEMETRY</h3>
+        </div>
+        <button class="btn-close-modal" onclick="closeTelemetryModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="m-desc">
+          Because interplanetary missions face 5 to 20-minute communication delays and solar conjunction blackouts, AstroMind buffers encrypted health packets locally on the spacecraft workstation and synchronizes them seamlessly when a Deep Space Network (DSN) window is open.
+        </p>
+        <div class="telemetry-stats-grid">
+          <div class="m-stat-card">
+            <span class="m-label">TARGET STATION:</span>
+            <strong class="m-val" id="modalDestName">Artemis III Lunar Habitat Alpha</strong>
+          </div>
+          <div class="m-stat-card">
+            <span class="m-label">SIMULATED COMM DELAY:</span>
+            <strong class="m-val" id="modalDelay">2.6 seconds</strong>
+          </div>
+          <div class="m-stat-card">
+            <span class="m-label">LOCALLY BUFFERED PACKETS:</span>
+            <strong class="m-val text-cyan" id="modalBufferCount">18 packets</strong>
+          </div>
+          <div class="m-stat-card">
+            <span class="m-label">TOTAL SYNCED TELEMETRY:</span>
+            <strong class="m-val text-green" id="modalTotalSynced">1,420 packets</strong>
+          </div>
+        </div>
+        <div class="modal-sync-log-box" id="modalSyncLogBox">
+          <div class="log-line text-green">[STORE-AND-FORWARD] Local edge cache initialized. 100% offline logging active.</div>
+          <div class="log-line">[ENCRYPTION] AES-256 telemetry packet payload verified.</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-hud-secondary" onclick="closeTelemetryModal()">CLOSE</button>
+        <button class="btn-hud-primary" id="btnExecuteSync" onclick="executeTelemetrySync()">TRANSMIT BURST TO GROUND CONTROL</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Chimes for Alerts and AI Doctor (Synthesized using Web Audio API in JS) -->
+
+  <!-- SCRIPTS -->
+  <script src="{{ url_for('static', filename='js/voice_assistant.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/camera_vision.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

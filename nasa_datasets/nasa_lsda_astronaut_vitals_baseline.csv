@@ -1,0 +1,8 @@
+metric,target_cohort,nominal_range,microgravity_mean,caution_limit,emergency_limit,nasa_study_source,physiological_notes
+Resting_Heart_Rate,Astronaut In-Flight,55 - 78 BPM,68 BPM,< 50 or > 100 BPM,< 42 or > 125 BPM,NASA LSDA Flight Study 93-02,Cardiovascular deconditioning and cephalad fluid shift in microgravity
+SpO2_Blood_Oxygen,Astronaut In-Flight,96.0 - 99.5%,98.2%,< 94.0%,< 90.0%,NASA LSDA HRP Standard Measures,Reduced arterial pO2 due to fluid redistribute and ventilation-perfusion mismatch
+Heart_Rate_Variability_RMSSD,Astronaut In-Flight,42.0 - 75.0 ms,58.0 ms,< 30.0 ms,< 18.0 ms,NASA LSDA Study F-2018-09,Autonomic sympathetic nervous system stress and flight sleep debt index
+Cognitive_Fatigue_Score,Astronaut In-Flight,0 - 35 %,18 %,> 55 %,> 75 %,NASA HRP Spaceflight Fatigue Battery,Circadian desynchronosis from 90-minute orbital day/night cycles
+Systolic_Blood_Pressure,Astronaut In-Flight,105 - 128 mmHg,115 mmHg,> 140 mmHg,> 160 mmHg,NASA LSDA Orthostatic Series,Venous pooling changes upon shift to microgravity
+Diastolic_Blood_Pressure,Astronaut In-Flight,65 - 82 mmHg,74 mmHg,> 90 mmHg,> 100 mmHg,NASA LSDA Orthostatic Series,Vascular tone alterations during prolonged mission stay
+Respiration_Rate,Astronaut In-Flight,12 - 18 BrPM,14 BrPM,> 22 BrPM,> 28 BrPM,NASA LSDA Respiratory Dynamics,Altered chest wall compliance in zero-g environment

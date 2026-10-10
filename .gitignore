@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments and Secrets
+.env
+.venv
+env/
+venv/
+ENV/
+groq_api_key.txt
+*api_key.txt
+
+# Database files (optional local caches)
+*.sqlite3-journal
+*.db-journal
+
+# VS Code / IDE
+.vscode/
+.idea/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
