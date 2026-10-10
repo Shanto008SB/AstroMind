@@ -1,46 +1,74 @@
-# 🚀 AstroMind: Autonomous Deep Space & Earth Mission Control Suite
+<div align="center">
 
-**Challenge Topic:** Create Health Monitoring Software for Astronauts on Space Missions  
-**Event:** NASA Space Apps Challenge  
-**Architecture:** Dual-Station Mission Suite (Deep Space Station Edge Client + NASA Houston Earth Mission Control)  
-**Core Technologies:** 100% Pure Python Desktop GUI (CustomTkinter) • GroqCloud LPU Flight Surgeon AI • OpenCV 3D Biometric Facial Mesh Scanner • Hardware Audio Danger Alarm Siren • Multi-Expedition SQLite Medical Archive • Mobile Phone Wireless IoT Sensor Bridge
+# 🚀 AstroMind
+### Autonomous Deep Space & Earth Mission Control Medical Suite
+**NASA Space Apps Challenge • Astronaut Health & Deep Space Exploration**
 
----
+[![NASA Space Apps](https://img.shields.io/badge/NASA%20Space%20Apps-2026-blue.svg?style=for-the-badge&logo=nasa)](https://www.spaceappschallenge.org/)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![GUI](https://img.shields.io/badge/GUI-CustomTkinter-007ACC.svg?style=for-the-badge)](https://github.com/TomSchimansky/CustomTkinter)
+[![Computer Vision](https://img.shields.io/badge/Vision-OpenCV%20%7C%20rPPG-5C3EE8.svg?style=for-the-badge&logo=opencv&logoColor=white)](https://opencv.org/)
+[![AI Engine](https://img.shields.io/badge/Edge%20AI-Groq%20LPU%20Qwen-f55036.svg?style=for-the-badge)](https://groq.com/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 
-## 🌟 Executive Summary
+<p align="center">
+  <b>An offline-first, dual-station edge medical telemetry suite designed to protect astronauts during Moon & Mars missions when Earth communication is delayed by 10 to 40 minutes.</b>
+</p>
 
-**AstroMind** is a comprehensive dual-station health monitoring and medical management architecture designed for deep-space human exploration (ISS, Artemis Lunar Gateway, and Mars Transit missions):
-
-1. **🚀 Deep Space Station Client (`space_station_app.py` / `desktop_app.py`):**
-   - Autonomous, offline-first edge AI running aboard the spacecraft.
-   - Operates independent of Earth communication delays (5–20 minutes light-time lag).
-   - Features 3D Holographic Neural AI Brain, 24/7 background biometric rPPG computer vision, 3D Biometric Facial Mesh Scanner, continuous spacecraft danger alarm siren, and two-way voice Groq AI Flight Surgeon.
-   - **Flight Safety Protection:** Displays **ONLY the currently deployed mission crew**. Space crew cannot tamper with or modify the mission roster from orbit.
-
-2. **🌍 NASA Houston Earth Mission Control (`earth_control_app.py`):**
-   - Ground station monitoring console for NASA flight directors and ground flight surgeons on Earth.
-   - **Real-Time Deep Space Telemetry Link:** Live mirror of deployed crew heart rate, SpO2, HRV, fatigue, cabin CO2, temperature, and radiation.
-   - **Ground Hazard Alarm:** Live warning indicators, flight surgeon chimes, and critical telemetry alerts.
-   - **Exclusive Multi-Expedition Crew Roster Administration:**
-     - Add new astronauts to mission groups.
-     - Edit astronaut profiles, baselines, and flight credentials.
-     - Create new expeditions (e.g., *Expedition 72*, *Expedition 71 Historical*, *Artemis III*, *Artemis IV*).
-     - **Deploy Group to Space:** Earth commands which mission group is deployed in Deep Space — immediately synchronizing the Space Station software!
-     - **Mark Returned to Earth / Archive:** Archive returned astronauts while permanently preserving all historical medical telemetry for longitudinal research.
-   - **Clinical AI & Expedition Reports:** Text-based consultation with Groq LPU Flight Surgeon and formal clinical evaluation report generator.
-   - **Telemetry Focused:** Zero camera or face recognition overhead on Earth ground workstations.
+</div>
 
 ---
 
-## 🛰️ Architecture & Synchronization Bridge
+## 🌌 1. The Deep Space Challenge & Mission Context
+
+During long-duration deep-space exploration (such as NASA's **Artemis Lunar Gateway** and crewed **Mars Transit**), radio signals between spacecraft and Earth face **5 to 20 minutes of one-way latency** (up to 40 minutes round-trip). 
+
+If a crew member encounters an acute medical crisis—such as:
+* Sudden hypoxia or cabin decompression,
+* Microgravity cardiovascular arrhythmia,
+* Cabin hypercapnia (ECLSS CO₂ scrubber failure), or
+* Spaceflight-Associated Neuro-ocular Syndrome (SANS),
+
+**Ground flight surgeons at NASA Houston cannot intervene in real time.**
+
+**AstroMind** bridges this critical gap through a **Dual-Station Edge Computing Architecture**:
+1. **🚀 Deep Space Station (Spacecraft Edge Client):** Operates 100% offline aboard the spacecraft with zero Earth latency, providing autonomous clinical diagnosis, contactless biometric vital monitoring, and continuous acoustic hazard alarms.
+2. **🌍 NASA Houston Earth Mission Control:** Provides real-time mirrored telemetry over S-Band LAN links, exclusive multi-expedition astronaut roster administration, and longitudinal health analytics.
+
+---
+
+## 💡 2. Why AstroMind? (Impact, Mission Benefits & Uniqueness)
+
+### 🌟 Why This Project Matters
+In future long-duration human missions to Mars and deep space, an astronaut's life cannot be put on hold waiting for Earth to reply. AstroMind shifts space medicine from **reactive ground-dependent telemedicine** to **proactive, autonomous edge healthcare**. It functions as an omnipresent, non-fatiguing flight surgeon aboard the spacecraft that monitors crew health 24/7 without requiring Earth connectivity.
+
+### 🎯 How It Helps the Mission & Crew
+* **Zero-Latency Clinical Emergency Triage:** Delivers instant diagnostic countermeasures within milliseconds of an anomaly, bypassing the deadly 40-minute round-trip communication blackout.
+* **Frictionless 24/7 Crew Monitoring:** Removes sensor fatigue and skin irritation caused by adhesive electrodes and bulky wires, enabling passive vital sign tracking during sleep and routine mission operations.
+* **ECLSS Life-Support Protection:** Prevents catastrophic cabin asphyxiation by warning the crew of toxic CO₂ buildups (hypercapnia) and environmental breaches before cognitive impairment sets in.
+* **Crew Autonomy for Small Missions:** Compensates for the absence of dedicated medical doctors on 3-to-4 member exploratory crews by offering expert-level clinical guidance.
+* **Longitudinal Space Biology Research:** Empowers NASA flight surgeons on Earth with continuous biometric drift data to study long-term microgravity adaptation, cardiovascular deconditioning, and SANS.
+
+### 🦄 What Makes AstroMind Unique?
+Unlike typical hackathon projects that build simple mock web dashboards, AstroMind delivers a complete, authentic mission ecosystem:
+1. **True Dual-Station Edge-to-Ground Architecture:** Emulates an authentic deep-space communication architecture—an autonomous offline Edge station on the spacecraft combined with Houston Ground Control over a synchronized S-Band LAN link.
+2. **Contactless Optical rPPG & 3D Topological Facial Meshing:** Combines computer vision and remote photoplethysmography to extract pulse, SpO₂, and fatigue from micro-vascular facial perfusion without requiring wearable sensors.
+3. **NASA-STD-3001 Deterministic Safety Guardrails:** Rather than relying purely on probabilistic LLM responses, AstroMind binds the AI Doctor to official NASA environmental limits (SMAC) and LSDA baseline models to eliminate clinical hallucinations.
+4. **Historical Flight Case Matcher:** The only system that instantly matches live in-flight crises with documented historical NASA mission incidents (Apollo 15 arrhythmia, Gemini IX-A metabolic spikes, Mir EO-23 hypercapnia) to surface battle-tested NASA countermeasures.
+5. **Interactive Wireless Mobile IoT Simulation Bridge:** Allows judges and flight directors to inject physiological anomalies and trigger multi-harmonic acoustic danger sirens directly from any smartphone in real time (`/remote`).
+
+---
+
+## 🛰️ 3. Dual-Station Architecture & Data Flow
 
 ```
  ┌────────────────────────────────────────────────────────┐
  │        🚀 DEEP SPACE STATION CLIENT (Spacecraft)       │
- │  • Displays Deployed Crew Group (Read-Only Roster)    │
- │  • 3D Neural AI Brain & 3D Biometric Face Mesh Scanner │
- │  • Continuous NASA Emergency Danger Siren              │
- │  • Groq Voice AI Doctor (Mic & Audio Guidance)         │
+ │  • Displays Deployed Crew Group (Read-Only in Orbit)   │
+ │  • 3D Holographic Neural AI Brain                      │
+ │  • Contactless 3D Biometric Facial Mesh Scanner (rPPG) │
+ │  • Continuous Multi-Harmonic NASA Danger Alarm Siren   │
+ │  • Groq Voice AI Doctor (Hands-Free Mic Consultation)  │
  └──────────────────────────┬─────────────────────────────┘
                             │ Real-Time S-Band Telemetry
                             │ & Roster Synchronization
@@ -56,7 +84,7 @@
                             │ & Deployment Uplink
  ┌──────────────────────────┴─────────────────────────────┐
  │       🌍 NASA HOUSTON EARTH MISSION CONTROL CENTER     │
- │  • Live Spacecraft Telemetry & Vital Warning Banner    │
+ │  • Live Spacecraft Telemetry & Ground Warning Banner   │
  │  • Multi-Expedition Crew Roster Administration (Admin) │
  │  • Create Groups, Add/Edit/Return/Deploy Astronauts    │
  │  • Text Groq AI Flight Surgeon & Expedition Reports    │
@@ -66,48 +94,94 @@
 
 ---
 
-## ⚡ Quick Start & Launchers
+## ⚡ 4. Comprehensive Feature Breakdown
 
-### Option 1: Dual Mission Suite Menu (Recommended)
-Double-click:
-```cmd
-run_all.bat
-```
-Choose whether to launch the Space Station Client, Earth Mission Control, or **both side-by-side**!
+### 🚀 Deep Space Station Client (`space_station/main.py`)
+* **3D Holographic Neural AI Brain:** Real-time animated 3D neural topography visualizing central nervous stress, cognitive workload, and circadian alignment.
+* **Contactless 3D Biometric Facial Mesh Scanner:** Uses OpenCV computer vision to detect micro-vascular facial blood flow (rPPG) and Eye Aspect Ratio (EAR) for Heart Rate, SpO₂, and fatigue tracking without invasive sticky electrodes or cables.
+* **Groq AI Flight Surgeon:** Hands-free, two-way conversational voice doctor offering instant clinical guidance directly on the spacecraft.
+* **Hardware Danger Alarm Siren:** Multi-harmonic synthesized spacecraft hazard siren that triggers automatically when biometric or environmental parameters breach NASA safety thresholds.
+* **Flight Safety Protection:** Displays **ONLY the currently deployed mission crew**. Astronauts cannot tamper with or modify mission assignments from orbit.
 
-### Option 2: Individual Launchers
-- **Deep Space Station Client:**
-  ```cmd
-  run_space_station.bat
-  ```
-  *(or `python space_station_app.py`)*
+### 🌍 NASA Houston Earth Mission Control (`earth_station/main.py`)
+* **Ground Flight Director Hazard HUD:** Visual hazard indicators and ground alert chimes to immediately isolate and identify sick crew members in deep space.
+* **Exclusive Multi-Expedition Crew Administration:** Centralized ground authority to enroll astronauts, customize physiological baselines, create expeditions (Expedition 71/72, Artemis III/IV), and deploy groups to space.
+* **NASA Historical Case Matcher:** Matches live biometric anomalies against real NASA spaceflight incidents (Apollo 15 arrhythmia, Gemini IX-A metabolic spikes, Mir EO-23 hypercapnia) to provide historical countermeasures.
+* **Automated Clinical Dossier Generator:** Compiles standardized medical evaluation reports for NASA longitudinal flight archives.
 
-- **NASA Houston Earth Mission Control:**
-  ```cmd
-  run_earth_control.bat
-  ```
-  *(or `python earth_control_app.py`)*
-
-### Option 3: Wireless Mobile Phone IoT Remote
-Open any mobile browser on the same local Wi-Fi:
-```
-http://<YOUR_LOCAL_IP>:5000/remote
-```
-Controls heart rate, SpO2, fatigue, cabin CO2, and one-touch emergency drills from your smartphone!
+### 📱 Wireless Mobile IoT Sensor Remote (`/remote`)
+* Allows crew and flight directors to simulate telemetry changes, vitals drops, and one-touch emergency drills straight from any smartphone on the local network.
 
 ---
 
-## 👨‍🚀 How to Pitch to NASA Space Apps Judges
+## 🔬 5. Official NASA Datasets & Technical Standards Integrated
+
+AstroMind directly integrates data and regulatory thresholds from official NASA resources:
+
+| NASA Resource | Standard / Dataset | Implementation in AstroMind |
+| :--- | :--- | :--- |
+| **[NASA-STD-3001 Vol 2](https://standards.nasa.gov/standard/NASA/NASA-STD-3001-Vol-2)** | Space Flight Human-System Standard | Calibrates cabin safety alarms (Danger Siren) for CO₂ (<0.40% SMAC), temperature, and cumulative radiation dosimetry. |
+| **[NASA LSDA](https://lsda.jsc.nasa.gov/)** | Life Sciences Data Archive | Microgravity physiological norms (Resting Heart Rate, arterial SpO₂, HRV RMSSD) to model baseline drift in orbit. |
+| **[NASA OSDR](https://osdr.nasa.gov/)** | Open Science Data Repository | Spaceflight clinical syndromes and biological countermeasures for SANS, acute hypoxia, and cephalad fluid shifts. |
+| **[NASA Mission Archive](https://www.nasa.gov/missions/)** | ISS Expeditions Roster | Preloaded multi-group deployment rosters across Expeditions 70, 71, 72, and Artemis missions. |
+
+---
+
+## 🛠️ 6. Technology Stack
+
+* **Core Language:** Python 3.10+
+* **User Interface:** CustomTkinter (Futuristic NASA Dark Mode HUD)
+* **Computer Vision:** OpenCV, Haar Cascades, Remote Photoplethysmography (rPPG), 3D Topological Face Meshing
+* **Edge Intelligence & LLM:** GroqCloud LPU Inference Engine (Qwen-3.8-27B & Whisper Speech-to-Text)
+* **Audio & Acoustics:** Native multi-harmonic acoustic synthesis, `pyttsx3`, `sounddevice`
+* **Local IoT & Telemetry:** Flask REST API, S-Band LAN sync bridge, SQLite3 multi-expedition database
+
+---
+
+## 🚀 7. Quick Start & Installation
+
+### Step 1: Clone the Repository
+```bash
+git clone https://github.com/Shanto008SB/AstroMind.git
+cd AstroMind
+```
+
+### Step 2: Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### Step 3: Run the Dual Mission Suite
+Launch both stations side-by-side using the launcher menu:
+```cmd
+run_all.bat
+```
+*(Or launch individually via `run_space_station.bat` and `run_earth_control.bat`)*
+
+### Step 4: Open Mobile Phone Remote (Optional)
+Connect your smartphone to the same local Wi-Fi and open:
+```
+http://<YOUR_LOCAL_IP>:5000/remote
+```
+
+---
+
+## 👨‍🚀 8. Pitch & Demonstration Flow for Judges
 
 1. **Launch Both Stations Side-by-Side (`run_all.bat` -> Option 3):**
    - Point out the **Deep Space Station** on one side and **NASA Houston Mission Control** on the other side.
 2. **Demonstrate Autonomous Space Edge AI:**
    - Click **`🔍 INSTANT BIOMETRIC SCAN`** on the Space Station: show the 3D Biometric Facial Mesh Mask contouring the face with vertical topology lines, ocular tracking reticles, and sweeping laser beam.
-   - Click **`🎙️ VOICE CONVERSATION (MIC)`** to talk to the Groq AI Flight Surgeon.
+   - Click **`🎙️ VOICE CONVERSATION (MIC)`** to talk hands-free to the Groq AI Flight Surgeon.
 3. **Simulate a Deep Space Emergency from Phone or Space Station:**
-   - Click **`🚨 SIMULATE DRILL`** or drop SpO2 to 88% on your phone.
+   - Click **`🚨 SIMULATE DRILL`** or drop SpO₂ to 88% on your phone.
    - The continuous multi-harmonic spacecraft danger alarm siren sounds in space, the compromised astronaut's photo replaces the 3D brain, and the AI Doctor speaks the oxygen protocol.
    - **Look at the Earth Mission Control screen:** Earth immediately turns glowing red, sounds the ground flight director alert chime, and displays the astronaut's emergency telemetry!
 4. **Demonstrate Earth-Side Multi-Expedition Crew Administration:**
    - In Earth Mission Control, switch from *Expedition 72* to *Expedition 71 (Historical)* to show how past returned astronauts' health logs remain archived.
    - Click **`➕ ADD ASTRONAUT`** or **`🚀 DEPLOY GROUP TO SPACE`**: show how the Space Station software immediately reflects the new crew roster without restarting!
+
+---
+
+## 📄 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
